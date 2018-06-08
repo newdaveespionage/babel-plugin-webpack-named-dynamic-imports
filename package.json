@@ -1,10 +1,10 @@
 {
-  "name": "babel-plugin-webpack-named-dynamic-imports",
-  "version": "1.1.0",
-  "description": "A babel plugin for naming webpack imports",
+  "name": "babel-plugin-add-named-dynamic-import-comments",
+  "version": "1.0.0",
+  "description": "A babel plugin for naming webpack imports based on your existing object names",
   "main": "index.js",
-  "repository": "git@github.com:jakwuh/babel-plugin-webpack-named-dynamic-imports.git",
-  "author": "jakwuh <jakwuh@gmail.com>",
+  "repository": "git@github.com:newdaveespionage/babel-plugin-webpack-named-dynamic-imports.git",
+  "author": "daveespionage <daveespionage@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
