@@ -5,27 +5,32 @@ const diff =  require('diff');
 const chalk = require('chalk');
 
 const input = `
-importModules('./a.js');
+import A from 'a';
 
-importModules('./a.js', 'named-chunk-1');
+import('./a.js').then(({default: A}) => {});
 
-importModules(['./a.js', './b.js']);
+import( /* webpackChunkName: "yadda" */ './a.js').then(({ default: A }) => {});
 
-importModules(['./a.js', './b.js'], 'named-chunk-2');
+import( /* webpackPrefetch: true */ './a.js').then(({ default: A }) => {});
+
+import( /* webpackPrefetch: true */ /* webpackChunkName: "A" */ './a.js').then(({ default: A }) => {});
 `
 
 const output = `
-import("./a.js");
+import A from 'a';
 
-import( /* webpackChunkName: "named-chunk-1" */"./a.js");
+import( /* webpackChunkName: "A" */ './a.js').then(({ default: A }) => {});
 
-Promise.all([import("./a.js"), import("./b.js")]);
+import( /* webpackChunkName: "yadda" */ './a.js').then(({ default: A }) => {});
 
-Promise.all([import( /* webpackChunkName: "named-chunk-2" */"./a.js"), import( /* webpackChunkName: "named-chunk-2" */"./b.js")]);
+import( /* webpackPrefetch: true */ /* webpackChunkName: "A" */ './a.js').then(({ default: A }) => {});
+
+import( /* webpackPrefetch: true */ /* webpackChunkName: "A" */ './a.js').then(({ default: A }) => {});
 `;
 
 const transformedCode = babel.transform(input, {
     plugins: [
+        'syntax-dynamic-import',
         './'
     ]
 }).code;
